@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    
+    <div id="app" class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <label for="nombre">Ingrese su nombre</label>
+                <input type="text" class="form-control" placeholder="ingrese su nombre" id="nombre" v-model="nombre" autocomplete="off">
+                <p class="lead">
+                    {{ nombre }}
+                </p>
+            </div>
+            <div class="col-lg-5">
+                <pre>
+                    {{ $data }}
+                </pre>
+            </div>
+
+            <div class="col-lg-12">
+                <a v-bind:href="url" class="btn btn-success">
+                    ir a google
+                </a>
+            </div>
+
+            <div class="col-12">
+                <input type="checkbox" value="opcion 1" v-model="lista">Opcion 1
+                <input type="checkbox" value="opcion 2" v-model="lista">Opcion 2
+                <input type="checkbox" value="opcion 3" v-model="lista">Opcion 3
+                <input type="checkbox" value="opcion 4" v-model="lista">Opcion 4
+
+                <p class="lead" v-if="lista.length == 0">
+                    No selecciono ninguna opcion
+                </p>
+                <p class="lead" v-else>
+                    usted selecciono {{ lista.join(', ') }}
+                </p>
+            </div>
+
+            <div class="col-12">
+                <h4>Listado de Frameworks</h4>
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="frame in frameworks">
+                        {{ frame }}
+                    </li>
+                </ul>
+                <h4>Listado de peliculas</h4>
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="pelicula in peliculas">
+                        {{pelicula.titulo}},
+                        {{pelicula.year}}
+                    </li>
+                </ul>
+                <h4>Listado de Automoviles</h4>
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="(marca, i) in marcas">
+                        Marca : {{ marca }}, Modelo : {{ modelo[i] }}
+                    </li>
+                </ul>
+                <p v-html="google">
+                </p>
+                <h1 v-once>{{ titulo }}</h1>
+                <h1>{{ mostrarTitulo() }}</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let vue = new Vue({
+            el : '#app',
+            data : {
+                titulo : 'Hola mundo',
+                nombre : '',
+                url : 'https://www.google.com',
+                lista : [],
+                frameworks : ['Vue', 'React', 'Angular', 'Laravel', 'Ember'],
+                peliculas : [
+                    {titulo : 'Iron Man', year : 2008},
+                    {titulo : 'Django, Desencadenado', year : 2012},
+                    {titulo : 'It : Capitulo 2', year : 2019}
+                ],
+                marcas : ['Ferrari', 'Chevrolet', 'Ford'],
+                modelo : ['F12', 'Camaro', 'Focus'],
+                google : '<a href="https://www.google.com" class="btn btn-warning">Ir a google</a>',
+            },
+            methods : {
+                mostrarTitulo : function(){
+                    this.titulo = 'Aprendiendo Vue'
+                    return this.titulo
+                },
+            },
+            computed : {
+                
+            }
+        })
+    </script>
+</body>
+</html>

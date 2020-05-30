@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+
+    <div id="app" class="container">
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <button class="btn btn-info btn-block" type="button" v-on:click="contador++">
+                    {{ contador }}
+                </button>
+                <p class="lead" v-if="contador < 3">
+                    No hay clicks suficientes
+                </p>
+                <p class="lead" v-else>
+                    Clicks suficientes
+                </p>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let vue = new Vue({
+            el : '#app',
+            data : {
+                contador : 0
+            }
+        })
+    </script>
+</body>
+</html>
