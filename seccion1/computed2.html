@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+
+
+    <div class="container mt-5" id="app">
+        <table class="table">
+            <thead>
+                <th>Nombre</th>
+                <th>Pais</th>
+                <th>Electricidad</th>
+            </thead>
+            <tbody>
+                <tr v-for="presa in presas" v-once>
+                    <td>{{ presa.nombre }}</td>
+                    <td>{{ presa.pais }}</td>
+                    <td>{{ presa.electricidad }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <table class="table">
+            <thead>
+                <th>Nombre</th>
+                <th>Pais</th>
+                <th>Electricidad</th>
+            </thead>
+            <tbody>
+                <tr v-for="presa in presasPorElectricidad">
+                    <td>{{ presa.nombre }}</td>
+                    <td>{{ presa.pais }}</td>
+                    <td>{{ presa.electricidad }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+
+    <script src="vue.js"></script>
+    <script>
+        let vue = new Vue({
+            el : '#app',
+            data : {
+                presas : [
+                    {nombre : 'Represa Nurak', pais : 'Tajikistan', electricidad : 32000},
+                    {nombre : 'Represa Tres Gargantas', pais : 'China', electricidad : 22500},
+                    {nombre : 'Represa Tarbela', pais : 'Pakistan', electricidad : 3500},
+                    {nombre : 'Represa Guri', pais : 'Venezuela', electricidad : 10200}
+                ]
+            },
+            computed : {
+                presasPorElectricidad(){
+                    return this.presas.sort((dato1, dato2) => dato2.electricidad - dato1.electricidad)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

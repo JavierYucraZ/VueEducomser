@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container mt-5" id="app">
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <th>Item</th>
+                        <th>Precio</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in inventario">
+                            <td>{{ item.nombre }}</td>
+                            <td>{{ item.precio | moneda }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"></script>
+<script src="vue.js"></script>
+<script>
+    Vue.filter('moneda', function(valor){
+        return accounting.formatMoney(valor, "Bs. ", 2, '.', ',')
+    })
+    let vue = new Vue({
+        el: '#app',
+        data : {
+            inventario : [
+                {nombre : 'Galaxy A50', precio : '1250'},
+                {nombre : 'IPhone 8', precio : '2500'},
+                {nombre : 'IPad Air2', precio : '3590.70'},
+                {nombre : 'Laptop Asus', precio : '7950.67'}
+            ]
+        }
+    })
+</script>
+
+
+</body>
+</html>
