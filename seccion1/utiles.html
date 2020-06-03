@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        .tachado{
+            text-decoration: line-through;
+            color: #bbc2cc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="app">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-5 border border-info rounded">
+                <h1>
+                    {{ titulo.toLocaleUpperCase() }}
+                </h1>
+                <div class="form-group">
+                    <button class="btn btn-info" v-if="estado === 'default'" @click="cambiarEstado('agregar')">
+                        Agregar
+                    </button>
+                    <button class="btn btn-warning" v-else @click="cambiarEstado('default')">
+                        Cancelar
+                    </button>
+                </div>
+                <div v-if="estado === 'agregar'">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Agregar un nuevo Util"
+                        v-model="nuevoUtil" v-on:keyup.enter="guardarUtil">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" @click="guardarUtil" v-bind:disabled="nuevoUtil.length === 0">
+                            Agregar Util
+                        </button>
+                    </div>
+                </div>
+                
+                <ul class="list-group mt-2">
+                    <li class="list-group-item" :class="{tachado : util.comprado}"  v-for="util in utiles"
+                    @click="cambiarEstadoCompra(util)" style="cursor: pointer;">
+                        {{ util.nombre }}
+                    </li>
+                </ul>
+                <p v-if="utiles.length == 0" class="lead">
+                    No existen elementos en la lista
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        let vue = new Vue({
+            el : '#app',
+            data : {
+                titulo : 'Listado de utiles',
+                nuevoUtil : '',
+                estado : 'default',
+                utiles : [
+                    // "10 Cuadernos",
+                    // "15 Lapices",
+                    // "5 cajas de colores"
+                    {nombre : '10 cuadernos', comprado : true},
+                    {nombre : "15 lapices", comprado : false},
+                    {nombre : "5 cajas de colores", comprado : false}
+                ]
+            },
+            methods : {
+                guardarUtil : function(){
+                    this.utiles.push({
+                        nombre : this.nuevoUtil,
+                        comprado : false
+                    })
+                    this.nuevoUtil = ''
+                },
+                cambiarEstado : function(estado){
+                    this.estado = estado
+                },
+                cambiarEstadoCompra : function(util){
+                    util.comprado = !util.comprado
+                }
+            }
+        })
+    </script>
+</body>
+</html>
