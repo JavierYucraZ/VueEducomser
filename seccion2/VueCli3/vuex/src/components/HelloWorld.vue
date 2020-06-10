@@ -6,11 +6,18 @@
     <h3>Lista de amigos</h3>
     <input type="text" v-model="amigo">
     <button @click="agregarAmigoComponente">
-      Agregar amigo
+      <span v-if="this.$store.state.index == null">Agregar Amigo</span>
+      <span v-else>Editar Amigo</span>
     </button>
     <ul>
       <li v-for="(amigo, index) in $store.state.amigos" :key="index">
         {{ amigo }}
+        <button @click="$store.dispatch('eliminarAmigoA', index)">
+          Eliminar
+        </button>
+        <button @click="editarAmigoComponente(amigo, index)">
+          Editar
+        </button>
       </li>
     </ul>
   </div>
@@ -26,7 +33,20 @@ export default {
   },
   methods : {
     agregarAmigoComponente(){
-      this.$store.dispatch('agregarAmigoA', this.amigo)
+      if(this.$store.state.index == null){
+        this.$store.dispatch('agregarAmigoA', this.amigo)
+      }else{
+        let amigoObj = {
+          id : this.$store.state.index,
+          am : this.amigo
+        }
+        this.$store.dispatch('editarAmigoA', amigoObj)
+      }
+      this.amigo = ''
+    },
+    editarAmigoComponente(amigo, index){
+      this.amigo = amigo
+      this.$store.state.index = index
     }
   }
   // props: {
