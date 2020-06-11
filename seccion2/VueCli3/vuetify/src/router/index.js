@@ -14,7 +14,12 @@ Vue.use(VueRouter)
     path: '/about',
     name: 'About',
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+  },
+  {
+    path: '/services',
+    name: 'Service',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Service.vue')
+  },
 ]
 
 const router = new VueRouter({
